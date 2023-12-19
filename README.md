@@ -4,7 +4,7 @@
 Whac-A-Ralph é um minigame estilo Whac-A-Mole (Dai o nome do jogo uai), esse jogo foi proposta de desafio lançado ao decorrer do meu curso na plataforma da DIO.
 Foram utilizadas linguagens de HTML, CSS e Javascript para a construção do minigame.
 
-![image]()
+![image](https://raw.githubusercontent.com/Narceliolima/minigame-detona-ralph/main/ralph.gif)
 
 ## 🖇Referência
 
