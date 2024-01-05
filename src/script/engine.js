@@ -6,6 +6,7 @@ const state = {
         timeLeft: document.querySelector("#time-left"),
         score: document.querySelector("#score"),
         lives: document.querySelector("#lives"),
+        volumeSlider: document.querySelector(".music-slider input"),
     },
     values: {
         hitPosition: 0,
@@ -19,20 +20,35 @@ const state = {
     },
 };
 
+const bkgrnSound = new Audio(`./src/assets/sons/BonusScreenSMW.mp3`);
+
+function handleVolume (event) {
+    bkgrnSound.volume = event.target.value;
+}
+
+function playbgrnSound(){
+
+    state.view.volumeSlider.addEventListener("input", handleVolume);
+    bkgrnSound.volume = state.view.volumeSlider.value;
+    bkgrnSound.loop = true;
+    bkgrnSound.play();
+}
+
 function playAudio(nomeAudio){
-    let audio = new Audio(`./assets/sons/${nomeAudio}.m4a`);
-    audio.volume = 0.3;
+    let audio = new Audio(`./src/assets/sons/${nomeAudio}.m4a`);
+    audio.volume = state.view.volumeSlider.value;
     audio.play();
 }
 
 function countDown(){
-    state.values.currentTime--;
+    //state.values.currentTime--;
     state.view.timeLeft.textContent = state.values.currentTime;
 
     if(state.values.currentTime < 0||state.values.livesRemaining < 1){
         clearInterval(state.actions.countDownTimerID);
         clearInterval(state.actions.timerID);
         alert(`Fim de Jogo! Sua pontuação foi ${state.values.result}`);
+
     }
 }
 
@@ -49,18 +65,20 @@ function randomSquare(){
 
 function addListenerHitBox(){
     state.view.squares.forEach((square) => {
-        square.addEventListener("mousedown", () => {
-            if(square.id === state.values.hitPosition){
-                state.values.result++;
-                state.view.score.textContent = state.values.result;
-                state.values.hitPosition = null;
-                playAudio('hit');
-            }
-            else if(square.id !== state.values.hitPosition){
-                state.values.livesRemaining--;
-                state.view.lives.textContent = "x"+state.values.livesRemaining;
-                state.values.hitPosition = null;
-                playAudio('miss');
+        square.addEventListener("mousedown", (event) => {
+            if(event.button == 0){
+                if(square.id === state.values.hitPosition){
+                    state.values.result++;
+                    state.view.score.textContent = state.values.result;
+                    state.values.hitPosition = null;
+                    playAudio('hit');
+                }
+                else if(square.id !== state.values.hitPosition){
+                    state.values.livesRemaining--;
+                    state.view.lives.textContent = "x"+state.values.livesRemaining;
+                    state.values.hitPosition = null;
+                    playAudio('miss');
+                }
             }
         })
     });
@@ -69,5 +87,10 @@ function addListenerHitBox(){
 //Main
 (function () {
 
+    document.addEventListener("click", () => {
+        if(!document.hidden){
+            playbgrnSound();
+        }
+    });
     addListenerHitBox();
 })();

@@ -1,10 +1,11 @@
 @import url('./reset.css');
+@import url('./buttons.css');
 
 .container{
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-image: url('../imagens/wall.png');
+    background-image: url('../assets/imagens/wall.png');
 }
 
 .menu{
@@ -34,8 +35,8 @@
 }
 
 .enemy{
-    background-image: url('../imagens/ralph.png');
-    background-size: contain;
+    background-image: url('../assets/imagens/ralph.png');
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -57,4 +58,24 @@
 .menu-time h2:nth-child(1),
 .menu-score h2:nth-child(1){
     color: #cf0a0a;
+}
+
+.music-slider{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+}
+.music-slider input{
+    accent-color: #ffffff;
+}
+.music-slider input:nth-child(2){
+    margin-top: 0.5rem;
+}
+
+.start-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    display: none;
 }
